@@ -22,7 +22,7 @@ import { yellow } from "@material-ui/core/colors";
 import Plotly from "plotly.js";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { corsProxy, filterKeys } from "./globals";
-import { formatLabel } from "./utils";
+import { formatLabel } from "./utils/utils";
 import "./App.css";
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);

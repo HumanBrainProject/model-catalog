@@ -15,21 +15,21 @@ import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import _ from "lodash";
 
-import { datastore } from "./datastore";
-import ModelTable from "./ModelTable";
-import TestTable from "./TestTable";
-import ModelDetail from "./ModelDetail";
-import TestDetail from "./TestDetail";
-import CompareMultiResults from "./CompareMultiResults";
-import ModelAddForm from "./ModelAddForm";
-import TestAddForm from "./TestAddForm";
-import ConfigForm from "./ConfigForm";
+import { datastore } from "./services/datastore";
+import ModelTable from "./components/model/ModelTable";
+import TestTable from "./components/test/TestTable";
+import ModelDetail from "./components/model/ModelDetail";
+import TestDetail from "./components/test/TestDetail";
+import CompareMultiResults from "./components/compare/CompareMultiResults";
+import ModelAddForm from "./components/forms/ModelAddForm";
+import TestAddForm from "./components/forms/TestAddForm";
+import ConfigForm from "./components/forms/ConfigForm";
 import Introduction from "./Introduction";
 
-import ConfigDisplaySimple from "./ConfigDisplaySimple";
-import LoadingIndicator from "./LoadingIndicator";
-import ResultDetail from "./ResultDetail";
-import ErrorDialog from "./ErrorDialog";
+import ConfigDisplaySimple from "./components/layout/ConfigDisplaySimple";
+import LoadingIndicator from "./components/layout/LoadingIndicator";
+import ResultDetail from "./components/result/ResultDetail";
+import ErrorDialog from "./components/layout/ErrorDialog";
 import {
     DevMode,
     collaboratoryOrigin,
@@ -44,12 +44,12 @@ import {
     updateHash,
     baseUrl
 } from "./globals";
-import { isUUID, showNotification } from "./utils";
+import { isUUID, showNotification } from "./utils/utils";
 import ContextMain from "./ContextMain";
-import Theme from "./theme";
+import Theme from "./utils/theme";
 import { withSnackbar } from "notistack";
-import WarningBox from "./WarningBox";
-import AuthWidget from "./AuthWidget";
+import WarningBox from "./components/layout/WarningBox";
+import AuthWidget from "./components/auth/AuthWidget";
 
 // if working on the appearance/layout set globals.DevMode=true
 // to avoid loading the models and tests over the network every time;

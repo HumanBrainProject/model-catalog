@@ -34,11 +34,43 @@ $ npm start
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Running tests
+## Running Tests
 
-### Unit and integration tests
+### Unit and Integration Tests
 
-[TODO]
+The project employs [Jest](https://jestjs.io/) alongside [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) to facilitate unit and integration testing. This section delineates the procedure to craft and execute tests for the `ValidationFramework` component:
+
+1. **Dependency Installation**:
+   Prior to writing tests, ensure that all requisite testing libraries and dependencies are installed in your project. Use the following command for installation:
+
+```bash
+   $ npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
+```
+2. **Test File Creation**:
+   Initiate the testing process by creating a new test file named `ComponentName.test.js` in the same directory as the other tests : `../src/tests/`.
+
+3. **Test Writing**:
+   Within `ComponentName.test.js`, commence writing tests to ascertain the functionality of the `ComponentName` component. For instance, tests could be written to verify form validation logic and form submission behavior.
+
+4. **Test Execution**:
+   With the tests written, execute them by running the designated command in your terminal. This command triggers Jest, which autonomously locates and runs all files with a `.test.js` suffix.
+
+```bash
+   $ npm test
+```
+
+5. **Test Result Inspection**:
+   Post test execution, Jest furnishes a summary of the test outcomes in the terminal. For a more detailed insight into the test results, a coverage report can be generated and reviewed using the following command:
+
+```bash
+   $ npm test -- --coverage
+```
+
+6. **Test Debugging**:
+   In case of test failures, utilize the error messages and stack traces provided by Jest to identify and rectify the issues. Debugging tools and additional Jest features can be employed to further investigate and resolve testing anomalies.
+
+7. **Test Refinement**:
+   Based on the test results and debugging, refine your tests to ensure they cover all scenarios and edge cases. This iterative process enhances the robustness and reliability of your tests.
 
 ### System and end-to-end tests
 

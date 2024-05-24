@@ -12,8 +12,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
-import Theme from "./theme";
-import { formatValue, formatLabel, copyToClipboard } from "./utils";
+import Theme from "./utils/theme";
+import { formatValue, formatLabel, copyToClipboard } from "./utils/utils";
 import { withSnackbar } from "notistack";
 
 function EntityParameter(props) {

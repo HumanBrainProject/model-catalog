@@ -1,6 +1,7 @@
 export default {
     bodyBackground: "#FFFFFF",
     lightBackground: "#EFF7E5",
+    mediumBackground: "#99DD55",
     darkBackground: "#13AC8B",
     darkOrange: "#FF9933",
     tableDarkHeader: "#13AC8B",

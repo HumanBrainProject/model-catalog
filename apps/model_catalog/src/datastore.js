@@ -21,6 +21,7 @@ class DataStore {
         this.summary_results = {};
         this.extended_results = {};
         this.projects = [];
+        this.comments = {};
         this.vocab = null;
         this.queries = {
             models: {},
@@ -54,6 +55,10 @@ class DataStore {
         let config = this.getRequestConfig(source);
         config.headers["Content-type"] = "application/json";
         return axios.put(url, payload, config);
+    }
+
+    delete(url, source = null) {
+        return axios.delete(url, this.getRequestConfig(source));
     }
 
     async queryModels(filters, source = null) {
@@ -473,6 +478,62 @@ class DataStore {
             return this.vocab;
         }
     }
+
+    async getComments(objId, source=null) {
+        if (this.comments[objId]) {
+            return this.comments[objId];
+        } else {
+            const url = `${this.baseUrl}/comments/?about=${objId}&size=${querySizeLimit}`;
+            return this.get(url, source).then((res) => {
+                res.data.sort((a, b) => {return(a.timestamp > b.timestamp)});
+                this.comments[objId] = res.data;
+                return res.data;
+            });
+        }
+    }
+
+    async createComment(objId, content, submit, source=null) {
+        const url = `${this.baseUrl}/comments/`
+        const payload = {
+            about: objId,
+            content: content
+        }
+        return this.post(url, payload, source).then((res) => {
+            console.log(res.data);
+            this.comments[objId].push(res.data);
+            return res.data;
+        });
+    }
+
+    async updateComment(objId, commentId, content, submit, source=null) {
+        const url = `${this.baseUrl}/comments/${commentId}`
+        const payload = {}
+        if (content) {
+            payload.content = content;
+        }
+        if (submit) {
+            payload.status = "submitted";
+        }
+        return this.put(url, payload, source).then((res) => {
+            for (const comment in this.comments[objId]) {
+                if (comment.id === commentId) {
+                    comment.content = content;
+                }
+            }
+            return res.data;
+        });
+    }
+
+  async deleteComment(objId, commentId, source = null) {
+    const url = `${this.baseUrl}/comments/${commentId}`;
+    return this.delete(url, source).then((res) => {
+        // note that we use filter to return a new array rather than
+        // just removing the element from the original array
+        // because otherwise React doesn't refresh because the
+        // array object reference hasn't changed
+        this.comments[objId] = this.comments[objId].filter(comment => comment.id !== commentId);
+    });
+  }
 }
 
 export const datastore = new DataStore(baseUrl, null);

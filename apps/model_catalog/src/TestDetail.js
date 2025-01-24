@@ -28,6 +28,7 @@ import TestDetailContent from "./TestDetailContent";
 import TestDetailMetadata from "./TestDetailMetadata";
 import TestResultOverview from "./TestResultOverview";
 import ResultGraphs from "./ResultGraphs";
+import DiscussionPanel from "./DiscussionPanel";
 
 // if working on the appearance/layout set globals.DevMode=true
 // to avoid loading the models and tests over the network every time;
@@ -299,12 +300,13 @@ class TestDetail extends React.Component {
     }
 
     handleTabChange(event, newValue) {
-        // 0 : Model Info
-        // 1 : Validations
-        // 2 : Validations -> Results
-        // 3 : Validations -> Figures
-        if (newValue === 1) {
-            newValue = 2
+        // 0 : Test Info
+        // 1:  Comments
+        // 2 : Validations
+        // 3 : Validations -> Results
+        // 4 : Validations -> Figures
+        if (newValue === 2) {
+            newValue = 3
         }
         this.setState({ tabValue: newValue });
     }
@@ -390,6 +392,12 @@ class TestDetail extends React.Component {
         const { classes } = this.props;
         const [status] = this.context.status;
 
+        const emptyMessage = (
+            "No-one has commented on this validation test yet. " +
+            "Do you have any thoughts about the reference data or about the test implementation? " +
+            "If so, please comment!"
+        )
+
         return (
             <Dialog
                 fullScreen
@@ -432,18 +440,21 @@ class TestDetail extends React.Component {
                                     <Tab label="Info" className={this.state.tabValue === 0 ? classes.active_tabStyle : classes.default_tabStyle}
                                         style={{ opacity: 1 }} />
 
-                                    <Tab label={this.state.tabValue >= 1
+                                    <Tab label="Discussion" className={this.state.tabValue === 1 ? classes.active_tabStyle : classes.default_tabStyle}
+                                        style={{ opacity: 1 }} />
+
+                                    <Tab label={this.state.tabValue >= 2
                                         ? <div>Validations<DoubleArrowIcon style={{ verticalAlign: 'bottom', opacity: 1 }} /></div>
                                         : "Validations"}
-                                        className={this.state.tabValue >= 1 ? classes.active_tabStyle : classes.default_tabStyle} />
+                                        className={this.state.tabValue >= 2 ? classes.active_tabStyle : classes.default_tabStyle} />
 
-                                    {this.state.tabValue >= 1 && <Tab label="Results" className={classes.default_subTabStyle}
+                                    {this.state.tabValue >= 2 && <Tab label="Results" className={classes.default_subTabStyle}
                                         style={{
                                             borderTop: "medium solid", borderTopColor: Theme.activeTabColor,
                                             borderBottom: "medium solid", borderBottomColor: Theme.activeTabColor
                                         }} />}
 
-                                    {this.state.tabValue >= 1 && <Tab label="Figures" className={classes.default_subTabStyle}
+                                    {this.state.tabValue >= 2 && <Tab label="Figures" className={classes.default_subTabStyle}
                                         style={{
                                             borderTop: "medium solid", borderTopColor: Theme.activeTabColor,
                                             borderBottom: "medium solid", borderBottomColor: Theme.activeTabColor
@@ -505,8 +516,14 @@ class TestDetail extends React.Component {
                                 </Grid>
                             </TabPanel>
                             <TabPanel value={this.state.tabValue} index={1}>
+                                <DiscussionPanel
+                                    id={this.props.testData.id}
+                                    emptyMessage={emptyMessage}
+                                />
                             </TabPanel>
                             <TabPanel value={this.state.tabValue} index={2}>
+                            </TabPanel>
+                            <TabPanel value={this.state.tabValue} index={3}>
                                 <TestResultOverview
                                     id={this.props.testData.id}
                                     testJSON={this.props.testData}
@@ -514,7 +531,7 @@ class TestDetail extends React.Component {
                                     loadingResult={this.state.loadingResult}
                                 />
                             </TabPanel>
-                            <TabPanel value={this.state.tabValue} index={3}>
+                            <TabPanel value={this.state.tabValue} index={4}>
                                 <ResultGraphs
                                     id={this.props.testData.id}
                                     results={this.state.results}

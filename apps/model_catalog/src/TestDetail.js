@@ -392,6 +392,12 @@ class TestDetail extends React.Component {
         const { classes } = this.props;
         const [status] = this.context.status;
 
+        const emptyMessage = (
+            "No-one has commented on this validation test yet. " +
+            "Do you have any thoughts about the reference data or about the test implementation? " +
+            "If so, please comment!"
+        )
+
         return (
             <Dialog
                 fullScreen
@@ -512,6 +518,7 @@ class TestDetail extends React.Component {
                             <TabPanel value={this.state.tabValue} index={1}>
                                 <DiscussionPanel
                                     id={this.props.testData.id}
+                                    emptyMessage={emptyMessage}
                                 />
                             </TabPanel>
                             <TabPanel value={this.state.tabValue} index={2}>

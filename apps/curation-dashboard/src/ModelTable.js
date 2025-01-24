@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -43,8 +45,8 @@ const useStyles = makeStyles({
 });
 
 
-function getModels(auth) {
-    const url = baseUrl + "/models/?size=10000";
+function getModels(auth, from_index, size) {
+    const url = `${baseUrl}/models/?size=${size}&from_index=${from_index}`;
     const config = {
         headers: {
             'Authorization': 'Bearer ' + auth.token,
@@ -239,14 +241,17 @@ export default function ModelTable(props) {
     const [order, setOrder] = React.useState('desc');
     const [orderBy, setOrderBy] = React.useState('date_created');
     const [sortType, setSortType] = React.useState('string');
+    const [page, setPage] = React.useState(1);
+
+    const modelsPerPage = 20;
 
     React.useEffect(() => {
         setLoading(true);
-        getModels(props.auth)
+        getModels(props.auth, modelsPerPage * (page - 1), modelsPerPage)
             .then(res => {
                 console.log("Got models");
 
-                setModels(addAdditionalFields(res.data));
+                setModels(models.concat(addAdditionalFields(res.data)));
                 setLoading(false);
             })
             .catch(err => {
@@ -254,7 +259,11 @@ export default function ModelTable(props) {
                 setErrorMessage('Error loading models: ', err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [page]);
+
+    const handleLoadMore = () => {
+        setPage(page + 1);
+    }
 
     const handleRequestSort = (event, property, type) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -271,7 +280,7 @@ export default function ModelTable(props) {
     const SortableColumnHeader = (col) => {
         if (col.sortAttr) {
             return (
-                <TableCell sortDirection={orderBy === col.sortAttr ? order : false}>
+                <TableCell sortDirection={orderBy === col.sortAttr ? order : false} key={col.label}>
                     <TableSortLabel
                         active={orderBy === col.sortAttr}
                         direction={orderBy === col.sortAttr ? order : 'asc'}
@@ -288,7 +297,7 @@ export default function ModelTable(props) {
             )
         } else {
             return (
-                <TableCell><b>{col.label}</b></TableCell>
+                <TableCell key={col.label}><b>{col.label}</b></TableCell>
             )
         }
     }
@@ -332,6 +341,7 @@ export default function ModelTable(props) {
         )
     } else {
         return (
+            <React.Fragment>
             <TableContainer component={Paper}>
                 <Table className={classes.table} size="small" aria-label="simple table">
                     <TableHead>
@@ -378,7 +388,12 @@ export default function ModelTable(props) {
                         ))}
                     </TableBody>
                 </Table>
+
             </TableContainer>
+            <Box textAlign='center' my={1}>
+                <Button color="primary" onClick={handleLoadMore}>Load more</Button>
+            </Box>
+            </React.Fragment>
         );
     }
 }

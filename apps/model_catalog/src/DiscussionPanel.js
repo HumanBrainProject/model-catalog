@@ -16,9 +16,7 @@ import { datastore } from "./datastore";
 import Markdown from "./Markdown";
 import Theme from "./theme";
 import {
-  formatTimeStampAsDate,
-  formatTimeStampToLongString,
-  formatTimeStampToCompact,
+  formatTimeStampToLongString
 } from "./utils";
 
 function CommentEditor(props) {
@@ -126,7 +124,7 @@ function CommentBox(props) {
     if (content === "") {
       setContent(props.comment.content);
     }
-  });
+  }, [content, props.comment.content]);
 
   const onChange = (event) => {
     setContent(event.target.value);
@@ -188,7 +186,6 @@ function DiscussionPanel(props) {
   const signal = axios.CancelToken.source();
 
   const [comments, setComments] = React.useState([]);
-  const [error, setError] = React.useState(null);
   const [newComment, setNewComment] = React.useState({});
   const [waiting, setWaiting] = React.useState(false);
 

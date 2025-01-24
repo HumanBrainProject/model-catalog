@@ -259,11 +259,7 @@ function DiscussionPanel(props) {
   if (comments.length === 0) {
     message = (
       <Grid item xs={12}>
-        <p>
-          No-one has commented on this validation test yet. Do you have any
-          thoughts about the reference data or about the test implementation? If
-          so, please comment!
-        </p>
+        <p>{props.emptyMessage}</p>
       </Grid>
     );
   }

@@ -4,10 +4,10 @@
 # as it contains only the final built app
 
 # build environment
-FROM docker-registry.ebrains.eu/model-catalog/node:22-alpine as build
+FROM docker-registry.ebrains.eu/model-catalog/node:22-alpine AS build
 
 WORKDIR /model-catalog
-ENV PATH /model-catalog/node_modules/.bin:$PATH
+ENV PATH=/model-catalog/node_modules/.bin:$PATH
 COPY model_catalog/package.json ./
 COPY model_catalog/package-lock.json ./
 RUN npm ci --silent --legacy-peer-deps
@@ -15,7 +15,7 @@ COPY model_catalog ./
 RUN node --max-old-space-size=4096 `which npm` run build
 
 WORKDIR /curation-dashboard
-ENV PATH /curation-dashboard/node_modules/.bin:$PATH
+ENV PATH=/curation-dashboard/node_modules/.bin:$PATH
 COPY curation-dashboard/package.json ./
 COPY curation-dashboard/package-lock.json ./
 RUN npm ci --silent --legacy-peer-deps
@@ -27,6 +27,6 @@ RUN npm run build
 FROM docker-registry.ebrains.eu/model-catalog/nginx:stable-alpine
 COPY deployment/nginx-app.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /model-catalog/dist /usr/share/nginx/html/model-catalog
-COPY --from=build /curation-dashboard/build /usr/share/nginx/html/curation-dashboard
+COPY --from=build /curation-dashboard/dist /usr/share/nginx/html/curation-dashboard
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

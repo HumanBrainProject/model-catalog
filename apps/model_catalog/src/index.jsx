@@ -1,3 +1,4 @@
+import "./init";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import initAuth from './auth';
@@ -18,4 +19,9 @@ function renderApp(auth) {
     );
 };
 
+// For local development, uncomment the lines below, paste in a valid token, then comment out the bottom line
+// const auth = {
+//     token: "eyJ..."
+// }
+// window.addEventListener('DOMContentLoaded', () => renderApp(auth));
 window.addEventListener('DOMContentLoaded', () => initAuth(renderApp));

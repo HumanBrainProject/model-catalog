@@ -1,6 +1,6 @@
 // NOTE: dummy data (in 'dev_data' directory) for DevMode is from v1 APIs; needs to be updated for v2 usage
 export const DevMode = false; // TODO: change to false for production
-export const baseUrl = "https://validation-staging.brainsimulation.eu";
+export const baseUrl = "https://model-validation-api.apps.ebrains.eu";
 export const querySizeLimit = 1000000;
 export const collaboratoryOrigin = "https://wiki.ebrains.eu";
 export const hashChangedTopic = "/clb/community-app/hashchange";

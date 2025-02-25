@@ -8,13 +8,12 @@ import Link from "@material-ui/core/Link";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import axios from "axios";
 import React from "react";
+import {filesize} from "filesize";
 import Theme from "./theme";
 import ContextMain from "./ContextMain";
 import { copyToClipboard } from "./utils";
 import { withSnackbar } from "notistack";
 import { corsProxy } from "./globals";
-
-var filesize = require("filesize");
 
 class ResultFile extends React.Component {
     signal = axios.CancelToken.source();

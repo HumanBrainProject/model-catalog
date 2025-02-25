@@ -1,5 +1,5 @@
 import React from "react";
-import { hot } from "react-hot-loader/root";
+//import { hot } from "react-hot-loader/root";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -1264,4 +1264,5 @@ class ValidationFramework extends React.Component {
     }
 }
 
-export default withSnackbar(hot(ValidationFramework));
+//export default withSnackbar(hot(ValidationFramework));
+export default withSnackbar(ValidationFramework);

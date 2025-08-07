@@ -2,9 +2,9 @@ EBRAINS Model Catalog
 =====================
 
 This repository contains code related to the EBRAINS Model Catalog app,
-part of the Human Brain Project Validation Framework.
+part of the EBRAINS Validation Framework.
 
-All code is copyright 2016-2022 CNRS unless otherwise indicated.
+All code is copyright 2016-2025 CNRS unless otherwise indicated.
 
 <div><img src="https://raw.githubusercontent.com/HumanBrainProject/hbp-validation-client/master/eu_logo.jpg" alt="EU Logo" width="15%" align="right"></div>
 

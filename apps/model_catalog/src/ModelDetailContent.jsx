@@ -31,6 +31,8 @@ function getDownloadURL(source_url) {
         if (prefix) {
             return `${url_obj.origin}${url_obj.pathname}/${prefix}`;
         }
+    } else if (url_obj.hostname === "data-proxy.ebrains.eu") {
+       return `https://data.kg.ebrains.eu/zip?container=${source_url}`
     }
     return source_url;
 }

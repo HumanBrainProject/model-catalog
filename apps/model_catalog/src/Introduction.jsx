@@ -86,7 +86,7 @@ function MediaCard(props) {
           <CardMedia
             className={classes.media}
             image={
-              "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/VF_paper_demo/featured_models/" +
+              "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-VF_paper_demo/featured_models/" +
               props.id +
               ".jpg"
             }
@@ -210,7 +210,7 @@ class Introduction extends React.Component {
     };
     fetch(
       corsProxy +
-      "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/VF_paper_demo/vf_stats/models_stats.json",
+      "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-VF_paper_demo/vf_stats/models_stats.json",
       { headers }
     )
       .then((response) => response.json())

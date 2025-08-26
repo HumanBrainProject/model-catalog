@@ -39,7 +39,7 @@
             "brain_region": null,
             "score_type": "Other",
             "id": "69cb5f8d-b752-4bc1-a76d-64dfbc96ecca",
-            "data_location": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_validation_data/synapseunit/observations_ltp.json"
+            "data_location": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-sp6_validation_data/synapseunit/observations_ltp.json"
         },
         {
             "status": null,
@@ -80,7 +80,7 @@
             "brain_region": null,
             "score_type": "Other",
             "id": "3e1be46b-a088-4c71-89c7-8e4f09d7effe",
-            "data_location": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_validation_data/synapseunit/observations_ltd.json"
+            "data_location": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-sp6_validation_data/synapseunit/observations_ltd.json"
         },
         {
             "status": null,
@@ -121,7 +121,7 @@
             "brain_region": null,
             "score_type": "Other",
             "id": "4ed5cccd-e82e-460a-9a96-d56e97225f14",
-            "data_location": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_validation_data/synapseunit/observations_bidirectional.json"
+            "data_location": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-sp6_validation_data/synapseunit/observations_bidirectional.json"
         }
     ]
 }

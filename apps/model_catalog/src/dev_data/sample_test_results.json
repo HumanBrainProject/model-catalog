@@ -51,7 +51,7 @@
                     "brain_region": null,
                     "score_type": "Other",
                     "id": "69cb5f8d-b752-4bc1-a76d-64dfbc96ecca",
-                    "data_location": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_validation_data/synapseunit/observations_ltp.json"
+                    "data_location": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-sp6_validation_data/synapseunit/observations_ltp.json"
                 },
                 "parameters": "{'protocol':'ltp'}",
                 "uri": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationscript/v0.1.0/2808ff72-c840-4634-9004-3165b7e1e567",
@@ -69,7 +69,7 @@
                 "license": "",
                 "parameters": "",
                 "uri": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b51d3247-0b01-4866-8b51-9e039db1ea65",
-                "source": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/CA1_synaptic_plasticity/stdpmodel.zip",
+                "source": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-CA1_synaptic_plasticity/stdpmodel.zip",
                 "version": "1.0",
                 "model": {
                     "cell_type": "hippocampus CA1 pyramidal cell",
@@ -107,7 +107,7 @@
                             "parameters": "",
                             "timestamp": "2020-03-31T11:14:50.083055",
                             "uri": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b51d3247-0b01-4866-8b51-9e039db1ea65",
-                            "source": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/CA1_synaptic_plasticity/stdpmodel.zip",
+                            "source": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-CA1_synaptic_plasticity/stdpmodel.zip",
                             "version": "1.0",
                             "morphology": null,
                             "hash": "",
@@ -194,7 +194,7 @@
                     "brain_region": null,
                     "score_type": "Other",
                     "id": "69cb5f8d-b752-4bc1-a76d-64dfbc96ecca",
-                    "data_location": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/sp6_validation_data/synapseunit/observations_ltp.json"
+                    "data_location": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-sp6_validation_data/synapseunit/observations_ltp.json"
                 },
                 "parameters": "{'protocol':'ltp'}",
                 "uri": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/validationscript/v0.1.0/2808ff72-c840-4634-9004-3165b7e1e567",
@@ -212,7 +212,7 @@
                 "license": "",
                 "parameters": "",
                 "uri": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b51d3247-0b01-4866-8b51-9e039db1ea65",
-                "source": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/CA1_synaptic_plasticity/stdpmodel.zip",
+                "source": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-CA1_synaptic_plasticity/stdpmodel.zip",
                 "version": "1.0",
                 "model": {
                     "cell_type": "hippocampus CA1 pyramidal cell",
@@ -250,7 +250,7 @@
                             "parameters": "",
                             "timestamp": "2020-03-31T11:14:50.083055",
                             "uri": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b51d3247-0b01-4866-8b51-9e039db1ea65",
-                            "source": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/CA1_synaptic_plasticity/stdpmodel.zip",
+                            "source": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-CA1_synaptic_plasticity/stdpmodel.zip",
                             "version": "1.0",
                             "morphology": null,
                             "hash": "",

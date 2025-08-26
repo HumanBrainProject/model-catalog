@@ -36,7 +36,7 @@
                     "parameters": "",
                     "timestamp": "2020-03-31T11:14:50.083055",
                     "uri": "https://nexus.humanbrainproject.org/v0/data/modelvalidation/simulation/memodel/v0.1.2/b51d3247-0b01-4866-8b51-9e039db1ea65",
-                    "source": "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/CA1_synaptic_plasticity/stdpmodel.zip",
+                    "source": "https://data-proxy.ebrains.eu/api/v1/buckets/pc0a33-CA1_synaptic_plasticity/stdpmodel.zip",
                     "version": "1.0",
                     "morphology": null,
                     "hash": "",

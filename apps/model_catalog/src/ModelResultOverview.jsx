@@ -208,9 +208,13 @@ class ResultEntryTest extends React.Component {
                                         }
                                         style={{ fontWeight: "bold" }}
                                     >
-                                        {result_test.test_alias
-                                            ? result_test.test_alias
-                                            : result_test.test_name}
+                                        <a href={`#test_id.${result_test.test_id}`} target="_blank">
+                                            {
+                                                result_test.test_alias
+                                                ? result_test.test_alias
+                                                : result_test.test_name
+                                            }
+                                        </a>
                                     </TableCell>
                                 ) : (
                                     <React.Fragment></React.Fragment>

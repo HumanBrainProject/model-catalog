@@ -25,13 +25,21 @@ import Avatar from "@material-ui/core/Avatar";
 
 
 function getDownloadURL(source_url) {
-    const url_obj = new URL(source_url)
+    console.log(`Download link: ${source_url}`);
+    let url_obj = null;
+    try {
+        url_obj = new URL(source_url);
+    } catch {
+        return source_url;
+    }
     if (url_obj.hostname === "object.cscs.ch") {
         const prefix = url_obj.searchParams.get("prefix")
         if (prefix) {
             return `${url_obj.origin}${url_obj.pathname}/${prefix}`;
         }
-    } else if (url_obj.hostname === "data-proxy.ebrains.eu") {
+    }
+    if (url_obj.hostname === "data-proxy.ebrains.eu") {
+       console.log("Download link is from Data Proxy service");
        return `https://data.kg.ebrains.eu/zip?container=${source_url}`
     }
     return source_url;
@@ -616,7 +624,7 @@ class ModelDetailContent extends React.Component {
                                           />
                                           <InstanceParameter
                                               label="Source"
-                                              value={instance.source}
+                                              value={getDownloadURL(instance.source)}
                                               enqueueSnackbar={
                                                   this.props.enqueueSnackbar
                                               }
@@ -626,7 +634,7 @@ class ModelDetailContent extends React.Component {
                                           />
                                           <InstanceParameter
                                               label="Parameters"
-                                              value={instance.parameters}
+                                              value={getDownloadURL(instance.parameters)}
                                               enqueueSnackbar={
                                                   this.props.enqueueSnackbar
                                               }
@@ -636,7 +644,7 @@ class ModelDetailContent extends React.Component {
                                           />
                                           <InstanceParameter
                                               label="Morphology"
-                                              value={instance.morphology}
+                                              value={getDownloadURL(instance.morphology)}
                                               enqueueSnackbar={
                                                   this.props.enqueueSnackbar
                                               }

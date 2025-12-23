@@ -186,6 +186,7 @@ class ResultPerInstanceComboMT extends React.Component {
 }
 
 class ResultEntryTest extends React.Component {
+
     render() {
         const result_test = this.props.result_entry;
         const model_versions = this.props.model_versions;
@@ -222,6 +223,15 @@ class ResultEntryTest extends React.Component {
                                     {
                                         result_test.test_instances[test_inst_id]
                                             .test_version
+                                    }
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    bgcolor={Theme.tableDataHeader}
+                                    style={{ fontWeight: "bold" }}
+                                >
+                                    {
+                                        result_test.score_type
                                     }
                                 </TableCell>
                                 {model_versions.map(function (
@@ -305,6 +315,7 @@ export default class ModelResultOverview extends React.Component {
             // check if this test was already encountered
             if (!(result.test_id in dict_results)) {
                 dict_results[result.test_id] = {
+                    score_type: result.score_type,
                     test_id: result.test_id,
                     test_name: result.test_name,
                     test_alias: result.test_alias,
@@ -471,6 +482,7 @@ export default class ModelResultOverview extends React.Component {
     }
 
     renderResultsSummaryTable(dict_results, model_versions) {
+
         return (
             <React.Fragment>
                 <Grid container item direction="column">
@@ -495,7 +507,7 @@ export default class ModelResultOverview extends React.Component {
                                 <StyledTableRow>
                                     <TableCell
                                         align="center"
-                                        colSpan={2}
+                                        colSpan={3}
                                         rowSpan={2}
                                         bgcolor={Theme.tableDarkHeader}
                                         style={{ color: Theme.lightText, fontSize: "18px" }}
@@ -538,6 +550,13 @@ export default class ModelResultOverview extends React.Component {
                                         style={{ width: 200, maxWidth: 200, color: Theme.darkText, fontSize: "16px" }}
                                     >
                                         Test Version
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        bgcolor={Theme.tableHeader}
+                                        style={{ width: 200, maxWidth: 200, color: Theme.darkText, fontSize: "16px" }}
+                                    >
+                                        Score type
                                     </TableCell>
                                     {model_versions.map((item, index) => (
                                         <React.Fragment key={index}>

@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import _ from "lodash";
+import { jwtDecode } from "jwt-decode";
 
 import { datastore } from "./datastore";
 import ModelTable from "./ModelTable";
@@ -42,7 +43,8 @@ import {
     displayValid,
     queryValid,
     updateHash,
-    baseUrl
+    baseUrl,
+    corsProxy
 } from "./globals";
 import { isUUID, showNotification } from "./utils";
 import ContextMain from "./ContextMain";
@@ -50,6 +52,7 @@ import Theme from "./theme";
 import { withSnackbar } from "notistack";
 import WarningBox from "./WarningBox";
 import AuthWidget from "./AuthWidget";
+
 
 // if working on the appearance/layout set globals.DevMode=true
 // to avoid loading the models and tests over the network every time;
@@ -408,6 +411,10 @@ class ValidationFramework extends React.Component {
         axios.get(baseUrl).then(response => {
             setStatus(response.data.status)
         });
+
+        const tokenPayload = jwtDecode(this.props.auth.token);
+        console.log(tokenPayload);
+        this.setState({currentUser: tokenPayload.preferred_username})
 
         datastore
             .getValidFilterValues()
@@ -1223,7 +1230,6 @@ class ValidationFramework extends React.Component {
                                 </Tooltip>
                                 <AuthWidget
                                     currentUser={this.state.currentUser}
-                                    setCurrentUser={(user) => this.setState({currentUser: user})}
                                 />
                             </div>
                         </div>

@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PersonIcon from '@material-ui/icons/Person';
@@ -11,17 +13,11 @@ function AuthWidget(props) {
     const context = React.useContext(ContextMain);
     const [auth] = context.auth;
 
-    if (auth.authenticated || props.currentUser) {
+    React.useEffect(() => {}, [props, auth]);
 
-        if (!props.currentUser) {
-            auth.loadUserInfo().then((userInfo) => {
-                console.log(userInfo);
-                props.setCurrentUser(userInfo.preferred_username);
-            });
-        };
-
+    if (props.currentUser) {
         return (
-            <Tooltip title={props.currentUser || "anonymous"}>
+            <Tooltip title={props.currentUser}>
                 <IconButton variant="outlined">
                     <PersonIcon />
                 </IconButton>

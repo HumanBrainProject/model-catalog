@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -13,7 +12,6 @@ function AuthWidget(props) {
     const context = React.useContext(ContextMain);
     const [auth] = context.auth;
 
-    React.useEffect(() => {}, [props, auth]);
 
     if (props.currentUser) {
         return (

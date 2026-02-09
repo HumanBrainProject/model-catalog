@@ -43,8 +43,7 @@ import {
     displayValid,
     queryValid,
     updateHash,
-    baseUrl,
-    corsProxy
+    baseUrl
 } from "./globals";
 import { isUUID, showNotification } from "./utils";
 import ContextMain from "./ContextMain";
@@ -52,7 +51,6 @@ import Theme from "./theme";
 import { withSnackbar } from "notistack";
 import WarningBox from "./WarningBox";
 import AuthWidget from "./AuthWidget";
-
 
 // if working on the appearance/layout set globals.DevMode=true
 // to avoid loading the models and tests over the network every time;

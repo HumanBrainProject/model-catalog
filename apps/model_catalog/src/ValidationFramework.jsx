@@ -411,7 +411,6 @@ class ValidationFramework extends React.Component {
         });
 
         const tokenPayload = jwtDecode(this.props.auth.token);
-        console.log(tokenPayload);
         this.setState({currentUser: tokenPayload.preferred_username})
 
         datastore
@@ -435,11 +434,9 @@ class ValidationFramework extends React.Component {
             });
 
         if (window.location.hash) {
-
-            if (window.location.hash.includes("iss=")) {
-              window.location.hash = window.location.hash.replace("iss=https%3A%2F%2Fiam.ebrains.eu%2Fauth%2Frealms%2Fhbp", "");
-            }
-            const param = window.location.hash.slice(1).replace("&", "");
+            // at the moment, the IAM redirect is adding "=" to the end of the hash
+            // so we strip it off.
+            const param = window.location.hash.slice(1, -1);
 
             if (param.length > 0) {
                 let proceed = true;

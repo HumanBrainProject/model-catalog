@@ -6,6 +6,10 @@ run_cypress_tests:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
   rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      changes:
+        - apps/**/*
+  rules:
     - changes:
       - apps/model_catalog/**/*
   script:

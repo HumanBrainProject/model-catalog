@@ -6,7 +6,7 @@ import Keycloak from 'keycloak-js';
 const keycloak = new Keycloak({
     url: 'https://iam.ebrains.eu/auth',
     realm: 'hbp',
-    clientId: 'model-catalog',
+    clientId: 'model-catalog-v3',
     'public-client': true,
     'confidential-port': 0,
 });

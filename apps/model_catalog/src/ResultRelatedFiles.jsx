@@ -14,6 +14,7 @@ import ContextMain from "./ContextMain";
 import { copyToClipboard } from "./utils";
 import { withSnackbar } from "notistack";
 import { corsProxy } from "./globals";
+import { datastore } from "./datastore";
 
 class ResultFile extends React.Component {
     signal = axios.CancelToken.source();
@@ -63,7 +64,7 @@ class ResultFile extends React.Component {
         let query_url = "";
         if (this.state.url.includes("drive.ebrains.eu")) {
             config["headers"] = {
-                Authorization: "Bearer " + this.state.auth.token,
+                Authorization: "Token " + this.props.driveToken,
                 'x-requested-with': 'XMLHttpRequest',
             };
             const url_parts = this.state.url.match(".*/lib/(.*)/file(/.*)");
@@ -242,6 +243,18 @@ class ResultFile extends React.Component {
 }
 
 class ResultRelatedFiles extends React.Component {
+
+    static contextType = ContextMain;
+
+    constructor(props, context) {
+        this.state = {
+            driveToken: null
+        };
+        datastore.getDriveToken().then((driveToken) => {
+            this.state.driveToken = driveToken;
+        });
+    }
+
     render() {
         if (!this.props.result_files) {
             return (
@@ -289,6 +302,7 @@ class ResultRelatedFiles extends React.Component {
                                 index={ind}
                                 enqueueSnackbar={this.props.enqueueSnackbar}
                                 closeSnackbar={this.props.closeSnackbar}
+                                driveToken={driveToken}
                             />
                         ))}
                     </Grid>

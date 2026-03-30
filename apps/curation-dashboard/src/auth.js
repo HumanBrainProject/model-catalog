@@ -19,11 +19,19 @@ export default function initAuth(main) {
         .catch(console.log);
 }
 
+async function getUserInfo(keycloak) {
+    const config = {
+        headers: {
+            'Authorization': 'Bearer ' + keycloak.token,
+        }
+    }
+    return axios.get("https://idm.ebrains.eu/users/userinfo", config);
+}
+
 
 function checkPermissions(keycloak) {
-    return keycloak.loadUserInfo()
+    return getUserInfo(keycloak)
         .then((userInfo) => {
-
             if (userInfo.roles.team.includes("collab-model-validation-editor") || userInfo.roles.team.includes("collab-model-validation-administrator")) {
                 keycloak.authorized = true;
             } else {

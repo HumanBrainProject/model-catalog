@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl, querySizeLimit } from "./globals";
+import { baseUrl, corsProxy, querySizeLimit } from "./globals";
 import { isUUID } from "./utils";
 
 const buildQuery = (filterDict) => {
@@ -16,6 +16,7 @@ class DataStore {
     constructor(baseUrl, auth) {
         this.baseUrl = baseUrl;
         this.auth = auth;
+        this.driveToken = null;
         this.models = {};
         this.tests = {};
         this.summary_results = {};
@@ -59,6 +60,19 @@ class DataStore {
 
     delete(url, source = null) {
         return axios.delete(url, this.getRequestConfig(source));
+    }
+
+    async getDriveToken() {
+        if (this.driveToken) {
+            return this.driveToken;
+        } else {
+            return this.get(corsProxy + "https://drive.ebrains.eu/api2/account/token/").then(
+                (res) => {
+                    this.driveToken = res.text;
+                    return this.driveToken;
+                }
+            )
+        }
     }
 
     async queryModels(filters, source = null) {

@@ -46,7 +46,9 @@ export const queryValid = [
 export const ADMIN_PROJECT_ID = "model-validation";
 
 // Since Collaboratory v2 storage and CSCS storage gives CORS related issues
-export const corsProxy = "https://corsproxy.apps.ebrains.eu/";
+export const corsProxy = import.meta.env.DEV
+    ? "/cors-proxy/"
+    : "https://corsproxy.apps.ebrains.eu/";
 
 export const updateHash = (value) => {
     window.location.hash = value;

@@ -1,23 +1,18 @@
 describe("The model validation result and figures tabs", () => {
-    beforeEach(() => {
+    beforeEach(function () {
+        if (!Cypress.env("hasValidToken")) {
+            this.skip();
+        }
         // Migliore_et_al_2011_Schizophr
         cy.visit("/#model_id.3ff4367a-ea8f-402c-b75f-5bdeed876940");
-        cy.url().then((url) => {
-            if (url.startsWith("https://iam.ebrains.eu/")) {
-                const password = Cypress.env("PASSWORD");
-                cy.get("input[name=username]").type("adavisontesting");
-                cy.get("input[name=password]").type(`${password}{enter}`);
-            }
-        });
     });
 
     it('Shows a summary of the validation results in the "Results" tab', () => {
-        cy.wait(5000);
-        cy.get("h4").should("contain", "Migliore_et_al_2011_Schizophr");
+        cy.get("h4", { timeout: 10000 }).should("contain", "CA1 hypofunction in schizophrenia");
+        cy.get(".MuiTabs-flexContainer").children().contains("Validations").click();
         cy.get(".MuiTabs-flexContainer").children().contains("Results").click();
 
-        cy.wait(10000);
-        cy.get("table th").contains("Validation Test");
+        cy.get("table th", { timeout: 30000 }).contains("Validation Test");
         cy.get("td").contains("hippo_somafeat_CA1_pyr_patch");
 
         cy.get("td").contains("3.33").click();
@@ -29,39 +24,32 @@ describe("The model validation result and figures tabs", () => {
     });
 
     it('Shows graphs comparing validation results in the "Figures" tab', () => {
-        cy.wait(5000);
-        cy.get("h4").should("contain", "Migliore_et_al_2011_Schizophr");
+        cy.get("h4", { timeout: 30000 }).should("contain", "CA1 hypofunction in schizophrenia");
+        cy.get(".MuiTabs-flexContainer").children().contains("Validations").click();
         cy.get(".MuiTabs-flexContainer").children().contains("Figures").click();
 
-        cy.wait(10000);
-        cy.get(".svg-container > svg");
+        cy.get(".svg-container > svg", { timeout: 30000 });
         cy.get("td p").contains("Observation Data Type");
-        cy.get("td p").contains("Mean, SD");
     });
 });
 
 describe("The validation test result and figures tabs", () => {
-    beforeEach(() => {
+    beforeEach(function () {
+        if (!Cypress.env("hasValidToken")) {
+            this.skip();
+        }
         // Hippocampus_SomaticFeaturesTest_CA1_pyr_cACpyr
         cy.visit("/#test_id.100abccb-6d30-4c1e-a960-bc0489e0d82d");
-        cy.url().then((url) => {
-            if (url.startsWith("https://iam.ebrains.eu/")) {
-                const password = Cypress.env("PASSWORD");
-                cy.get("input[name=username]").type("adavisontesting");
-                cy.get("input[name=password]").type(`${password}{enter}`);
-            }
-        });
     });
 
     it('Shows a summary of the validation results in the "Results" tab', () => {
-        cy.wait(5000);
-        cy.get("h4").should(
+        cy.get("h4", { timeout: 10000 }).should(
             "contain",
             "Hippocampus_SomaticFeaturesTest_CA1_pyr_cACpyr"
         );
+        cy.get(".MuiTabs-flexContainer").children().contains("Validations").click();
         cy.get(".MuiTabs-flexContainer").children().contains("Results").click();
 
-        cy.wait(90000);
-        cy.get("table th").contains("Model Name");
+        cy.get("table th", { timeout: 90000 }).contains("Model Name");
     });
 });

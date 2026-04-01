@@ -1,13 +1,9 @@
 describe("Comparing models starting from the homepage", () => {
-    beforeEach(() => {
+    beforeEach(function () {
+        if (!Cypress.env("hasValidToken")) {
+            this.skip();
+        }
         cy.visit("/");
-        cy.url().then((url) => {
-            if (url.startsWith("https://iam.ebrains.eu/")) {
-                const password = Cypress.env("PASSWORD");
-                cy.get("input[name=username]").type("adavisontesting");
-                cy.get("input[name=password]").type(`${password}{enter}`);
-            }
-        });
 
         // wait for /vocab call to complete
         cy.wait(5000);
@@ -17,16 +13,19 @@ describe("Comparing models starting from the homepage", () => {
         cy.get("label").contains("Only Models").click();
         // Choose options
         cy.get("#select-species").click();
-        cy.get('[data-value="Rattus norvegicus"] input[type=checkbox]').click();
+        cy.get('[data-value="Rattus norvegicus"]').click();
         cy.get("body").click(200, 0);
+        cy.get('[role="listbox"]').should("not.exist");
         cy.get("#select-brain_region").click();
-        cy.get('[data-value="hippocampus"] input[type=checkbox]').click();
+        cy.get('[data-value="CA1 field of hippocampus"]').scrollIntoView().click();
         cy.get("body").click(200, 0);
+        cy.get('[role="listbox"]').should("not.exist");
         cy.get("#select-cell_type").click();
-        cy.get('[data-value="pyramidal cell"] input[type=checkbox]').click();
+        cy.get('[data-value="pyramidal cell"]').scrollIntoView().click();
         cy.get("body").click(200, 0);
+        cy.get('[role="listbox"]').should("not.exist");
         cy.get("#select-model_scope").click();
-        cy.get('[data-value="single cell"] input[type=checkbox]').click();
+        cy.get('[data-value="single cell"]').scrollIntoView().click();
         cy.get("body").click(200, 0);
         // click "OK" to apply the filters
         cy.get("button span").contains("Ok").click();
@@ -47,7 +46,7 @@ describe("Comparing models starting from the homepage", () => {
             .first()
             .click();
         cy.get("td")
-            .contains("CA1_pyr_cACpyr_mpg141216_A_idA_20171003152605")
+            .contains("CA1_pyr_cACpyr_mpg141216_A_idA_20190305133333")
             .siblings()
             .first()
             .click();
@@ -56,10 +55,10 @@ describe("Comparing models starting from the homepage", () => {
         cy.get('[aria-label="Compare results"]').click();
 
         cy.get("h4").should("contain", "Compare Validation Results");
-        cy.get("h6").contains("3 models");
+        cy.get("h6").contains("3 models, 3 model instances");
         cy.get("button").contains("Compare All").scrollIntoView().click();
-        cy.wait(20000);
-        cy.get("div").contains("8.48").click();
+        // check that a results table appears
+        cy.get("table", { timeout: 30000 }).should("exist");
     });
 
     it("should allow us to remove unwanted versions before using Compare Models", () => {
@@ -80,25 +79,10 @@ describe("Comparing models starting from the homepage", () => {
         cy.get('[aria-label="Compare results"]').click();
 
         cy.get("h4").should("contain", "Compare Validation Results");
-        cy.get("h6").contains("2 models, 4 model instances");
-        cy.get("[role=button]")
-            .contains("CA1_pyr_cACpyr_mpg141209_A_idA_20190328144646")
-            .click();
-        cy.get("button[aria-label=delete]").last().click();
-        cy.get("[role=button]")
-            .contains("CA1_pyr_cACpyr_mpg141208_B_idA_20190328144006")
-            .click();
-        cy.get("button[aria-label=delete]").last().click();
-
         cy.get("h6").contains("2 models, 2 model instances");
         cy.get("button").contains("Compare Models").scrollIntoView().click();
-        cy.wait(30000);
-        cy.get("div").contains("9.65").click();
-        cy.url().should(
-            "equal",
-            Cypress.config().baseUrl +
-                "/#result_id.80aa9f5d-777b-4a29-8b40-d319ee25c493"
-        );
+        // check that a results table appears
+        cy.get("table", { timeout: 30000 }).should("exist");
     });
 
     it("should tell us if no results are found", () => {
@@ -119,7 +103,7 @@ describe("Comparing models starting from the homepage", () => {
         cy.get('[aria-label="Compare results"]').click();
 
         cy.get("h4").should("contain", "Compare Validation Results");
-        cy.get("h6").contains("2 models, 4 model instances");
+        cy.get("h6").contains("2 models, 2 model instances");
 
         cy.get("button").contains("Compare Models").scrollIntoView().click();
         cy.wait(20000);

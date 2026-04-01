@@ -434,9 +434,7 @@ class ValidationFramework extends React.Component {
             });
 
         if (window.location.hash) {
-            // at the moment, the IAM redirect is adding "=" to the end of the hash
-            // so we strip it off.
-            const param = window.location.hash.slice(1, -1);
+            const param = window.location.hash.slice(1).replace(/=$/, "");
 
             if (param.length > 0) {
                 let proceed = true;

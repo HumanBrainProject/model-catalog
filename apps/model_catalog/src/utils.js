@@ -159,7 +159,7 @@ export function reformatErrorMessage(errorResponse) {
     let output = "Error code = " + errorResponse.status;
     if (typeof errorResponse.data.detail === "string") {
         output += "\n\n" + errorResponse.data.detail;
-    } else {
+    } else if (Array.isArray(errorResponse.data.detail)) {
         // presuming keys 'loc' and 'msg' exist; update func if necessary to handle other cases
         errorResponse.data.detail.forEach(function (entry, index) {
             let error_loc = entry.loc.join(" -> ");
@@ -168,6 +168,8 @@ export function reformatErrorMessage(errorResponse) {
             output += "Error source #" + (index + 1) + ": " + error_loc;
             output += "\nError message: " + error_msg;
         });
+    } else if (errorResponse.data.detail) {
+        output += "\n\n" + JSON.stringify(errorResponse.data.detail);
     }
     return output;
 }

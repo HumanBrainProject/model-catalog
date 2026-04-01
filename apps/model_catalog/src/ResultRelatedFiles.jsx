@@ -247,11 +247,12 @@ class ResultRelatedFiles extends React.Component {
     static contextType = ContextMain;
 
     constructor(props, context) {
+        super(props, context);
         this.state = {
             driveToken: null
         };
         datastore.getDriveToken().then((driveToken) => {
-            this.state.driveToken = driveToken;
+            this.setState({ driveToken: driveToken });
         });
     }
 
@@ -302,7 +303,7 @@ class ResultRelatedFiles extends React.Component {
                                 index={ind}
                                 enqueueSnackbar={this.props.enqueueSnackbar}
                                 closeSnackbar={this.props.closeSnackbar}
-                                driveToken={driveToken}
+                                driveToken={this.state.driveToken}
                             />
                         ))}
                     </Grid>

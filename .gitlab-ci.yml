@@ -2,20 +2,32 @@ stages:
   - build
   - test
 
+run_unit_tests:
+  image: docker-registry.ebrains.eu/model-catalog/node:22-alpine
+  stage: test
+  rules:
+    - changes:
+      - apps/model_catalog/**/*
+      - .gitlab-ci.yml
+  script:
+    - cd apps/model_catalog
+    - npm ci --legacy-peer-deps
+    - npm run test
+  tags:
+    - docker-runner
+
 run_cypress_tests:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "main"'
+    - if: '$CI_COMMIT_REF_NAME == "staging"'
       changes:
-        - apps/**/*
-  rules:
-    - changes:
-      - apps/model_catalog/**/*
+        - apps/model_catalog/**/*
+        - .gitlab-ci.yml
   script:
     - cd apps/model_catalog
     # install dependencies
-    - npm ci
+    - npm ci --legacy-peer-deps
     # start server and run Cypress tests
     - npm run e2e:ci
   tags:

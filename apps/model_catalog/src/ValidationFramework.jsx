@@ -803,8 +803,9 @@ class ValidationFramework extends React.Component {
     }
 
     handleFeaturedModelClick(modelId) {
-       updateHash("model_id." + modelId);
-       this.getModel("model_id", modelId);
+        updateHash("model_id." + modelId);
+        this.setState({ loadingOpen: true });
+        this.getModel("model_id", modelId);
     }
 
     handleModelRowClick(rowData, rowMeta) {

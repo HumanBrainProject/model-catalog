@@ -20,10 +20,13 @@ function renderApp(auth) {
 };
 
 // In development, if VITE_DEV_TOKEN is set in .env.local, use it directly.
+// Set VITE_SKIP_AUTH=true to render the app without authentication (for CI/e2e tests).
 // Otherwise fall through to the normal Keycloak login flow.
 // See .env.local.example for setup instructions.
 if (import.meta.env.DEV && import.meta.env.VITE_DEV_TOKEN) {
   window.addEventListener("DOMContentLoaded", () => renderApp({ token: import.meta.env.VITE_DEV_TOKEN, authenticated: true }));
+} else if (import.meta.env.DEV && import.meta.env.VITE_SKIP_AUTH) {
+  window.addEventListener("DOMContentLoaded", () => renderApp({ authenticated: false }));
 } else {
   window.addEventListener('DOMContentLoaded', () => initAuth(renderApp));
 }

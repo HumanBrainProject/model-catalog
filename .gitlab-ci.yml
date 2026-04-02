@@ -19,6 +19,8 @@ run_unit_tests:
 run_cypress_tests:
   image: cypress/browsers:22.19.0
   stage: test
+  variables:
+    VITE_SKIP_AUTH: "true"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "staging"'
       changes:

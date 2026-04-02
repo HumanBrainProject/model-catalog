@@ -410,8 +410,10 @@ class ValidationFramework extends React.Component {
             setStatus(response.data.status)
         });
 
-        const tokenPayload = jwtDecode(this.props.auth.token);
-        this.setState({currentUser: tokenPayload.preferred_username})
+        if (this.props.auth.token) {
+            const tokenPayload = jwtDecode(this.props.auth.token);
+            this.setState({currentUser: tokenPayload.preferred_username});
+        }
 
         datastore
             .getValidFilterValues()

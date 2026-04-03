@@ -10,7 +10,8 @@ WORKDIR /model-catalog
 ENV PATH=/model-catalog/node_modules/.bin:$PATH
 COPY model_catalog/package.json ./
 COPY model_catalog/package-lock.json ./
-RUN npm ci --silent --legacy-peer-deps
+RUN npm ci --legacy-peer-deps
+
 COPY model_catalog ./
 RUN node --max-old-space-size=4096 `which npm` run build
 
@@ -25,8 +26,22 @@ RUN npm run build
 
 # production environment
 FROM docker-registry.ebrains.eu/model-catalog/nginx:stable-alpine
+
+RUN sed -i 's/^user  nginx;/#user  nginx;/' /etc/nginx/nginx.conf && \
+    sed -i 's|/var/run/nginx.pid|/tmp/nginx.pid|' /etc/nginx/nginx.conf
+
 COPY deployment/nginx-app.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /model-catalog/dist /usr/share/nginx/html/model-catalog
 COPY --from=build /curation-dashboard/dist /usr/share/nginx/html/curation-dashboard
-EXPOSE 80
+
+# Make nginx dirs writable for non-root user (UID 1001) — must come after COPY to preserve ownership
+RUN chown -R 1001:0 /var/cache/nginx /var/log/nginx /etc/nginx/conf.d /usr/share/nginx/html && \
+    chmod -R g+w /var/cache/nginx /var/log/nginx /etc/nginx/conf.d /usr/share/nginx/html
+
+COPY deployment/docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+EXPOSE 8080
+USER 1001
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

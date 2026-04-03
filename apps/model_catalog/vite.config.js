@@ -12,6 +12,16 @@ export default defineConfig({
     nodePolyfills(),
     commonjs(),
     {
+      name: 'dev-env-config',
+      configureServer(server) {
+        server.middlewares.use('/env-config.js', (req, res) => {
+          res.setHeader('Content-Type', 'application/javascript');
+          const baseUrl = process.env.VALIDATION_SERVICE_BASE_URL || "https://model-validation-api.apps.dev-adacloud.ebrains.eu";
+          res.end(`window.__env = { baseUrl: "${baseUrl}" };`);
+        });
+      },
+    },
+    {
       name: 'dev-cors-proxy',
       configureServer(server) {
         server.middlewares.use('/cors-proxy', (req, res) => {

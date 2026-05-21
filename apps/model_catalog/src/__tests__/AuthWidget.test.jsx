@@ -1,6 +1,6 @@
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
-import { renderWithProviders } from "./helpers/renderWithProviders";
+import { renderWithProviders, renderWithContext } from "./helpers/renderWithProviders";
 import AuthWidget from "../AuthWidget";
 
 describe("AuthWidget", () => {
@@ -20,5 +20,13 @@ describe("AuthWidget", () => {
         renderWithProviders(<AuthWidget currentUser="John Doe" />);
         // The tooltip title is set to the currentUser prop
         expect(screen.getByRole("button")).toBeInTheDocument();
+    });
+
+    it("copies the auth token to the clipboard when the person icon is clicked", () => {
+        renderWithContext(<AuthWidget currentUser="John Doe" />, {
+            auth: [{ token: "test-token-123" }, vi.fn()],
+        });
+        fireEvent.click(screen.getByRole("button"));
+        expect(navigator.clipboard.writeText).toHaveBeenCalledWith("test-token-123");
     });
 });
